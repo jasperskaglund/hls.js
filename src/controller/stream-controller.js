@@ -302,6 +302,7 @@ class StreamController extends TaskLoop {
 
     let frag;
 
+    logger.log('fragments',fragments);
     // check if requested position is within seekable boundaries :
     // logger.log(`start/pos/bufEnd/seeking:${start.toFixed(3)}/${pos.toFixed(3)}/${bufferEnd.toFixed(3)}/${this.media.seeking}`);
     let maxLatency = config.liveMaxLatencyDuration !== undefined ? config.liveMaxLatencyDuration : config.liveMaxLatencyDurationCount * levelDetails.targetduration;
@@ -310,8 +311,10 @@ class StreamController extends TaskLoop {
       let liveSyncPosition = this.liveSyncPosition = this.computeLivePosition(start, levelDetails);
       logger.log(`buffer end: ${bufferEnd.toFixed(3)} is located too far from the end of live sliding playlist, reset currentTime to : ${liveSyncPosition.toFixed(3)}`);
       bufferEnd = liveSyncPosition;
-      if (media && media.readyState && media.duration > liveSyncPosition)
+      if (media && media.readyState && media.duration > liveSyncPosition) {
         media.currentTime = liveSyncPosition;
+        logger.log("set current time", media.currentTime);
+      }
 
       this.nextLoadPosition = liveSyncPosition;
     }
