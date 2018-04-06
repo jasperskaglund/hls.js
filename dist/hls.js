@@ -8378,6 +8378,7 @@ var stream_controller_StreamController = function (_TaskLoop) {
       logger["b" /* logger */].log('fragments', fragments);
       var liveSyncPosition = this.liveSyncPosition = this.computeLivePosition(start, levelDetails);
       logger["b" /* logger */].log('buffer end: ' + bufferEnd.toFixed(3) + ' is located too far from the end of live sliding playlist, reset currentTime to : ' + liveSyncPosition.toFixed(3));
+      logger["b" /* logger */].log('media duration ', media.duration);
       bufferEnd = liveSyncPosition;
       if (media && media.readyState && media.duration > liveSyncPosition) {
         media.currentTime = liveSyncPosition;
