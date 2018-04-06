@@ -296,6 +296,7 @@ export default class LevelController extends EventHandler {
       this.cleanTimer();
       if (this.currentLevelIndex !== newLevel) {
         logger.log(`switching to level ${newLevel}`);
+        logger.log(&apos;levels&apos;, levels);
         this.currentLevelIndex = newLevel;
         let levelProperties = levels[newLevel];
         levelProperties.level = newLevel;
