@@ -8360,12 +8360,12 @@ var stream_controller_StreamController = function (_TaskLoop) {
 
     var frag = void 0;
 
-    logger["b" /* logger */].log('fragments', fragments);
     // check if requested position is within seekable boundaries :
     // logger.log(`start/pos/bufEnd/seeking:${start.toFixed(3)}/${pos.toFixed(3)}/${bufferEnd.toFixed(3)}/${this.media.seeking}`);
     var maxLatency = config.liveMaxLatencyDuration !== undefined ? config.liveMaxLatencyDuration : config.liveMaxLatencyDurationCount * levelDetails.targetduration;
 
     if (bufferEnd < Math.max(start - config.maxFragLookUpTolerance, end - maxLatency)) {
+      logger["b" /* logger */].log('fragments', fragments);
       var liveSyncPosition = this.liveSyncPosition = this.computeLivePosition(start, levelDetails);
       logger["b" /* logger */].log('buffer end: ' + bufferEnd.toFixed(3) + ' is located too far from the end of live sliding playlist, reset currentTime to : ' + liveSyncPosition.toFixed(3));
       bufferEnd = liveSyncPosition;
@@ -8693,6 +8693,8 @@ var stream_controller_StreamController = function (_TaskLoop) {
 
 
   StreamController.prototype.nextLevelSwitch = function nextLevelSwitch() {
+    logger["b" /* logger */].log('nextLevelSwitch');
+    logger["b" /* logger */].log('levels', this.levels);
     var media = this.media;
     // ensure that media is defined and that metadata are available (to retrieve currentTime)
     if (media && media.readyState) {
@@ -8710,6 +8712,7 @@ var stream_controller_StreamController = function (_TaskLoop) {
         var nextLevelId = this.hls.nextLoadLevel,
             nextLevel = this.levels[nextLevelId],
             fragLastKbps = this.fragLastKbps;
+        logger["b" /* logger */].log('next level', nextLevel);
         if (fragLastKbps && this.fragCurrent) fetchdelay = this.fragCurrent.duration * nextLevel.bitrate / (1000 * fragLastKbps) + 1;else fetchdelay = 0;
       } else {
         fetchdelay = 0;
