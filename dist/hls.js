@@ -9710,6 +9710,7 @@ var level_controller_LevelController = function (_EventHandler) {
       this.cleanTimer();
       if (this.currentLevelIndex !== newLevel) {
         logger["b" /* logger */].log('switching to level ' + newLevel);
+        logger["b" /* logger */].log('levels', levels);
         this.currentLevelIndex = newLevel;
         var levelProperties = levels[newLevel];
         levelProperties.level = newLevel;
